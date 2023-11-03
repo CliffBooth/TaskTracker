@@ -1,4 +1,4 @@
-package bestsoftware.tasktracker;
+package bestsoftware.tasktracker.board;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

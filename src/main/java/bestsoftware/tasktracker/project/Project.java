@@ -1,11 +1,10 @@
-package bestsoftware.tasktracker;
+package bestsoftware.tasktracker.project;
 
 
+import bestsoftware.tasktracker.board.Board;
+import bestsoftware.tasktracker.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,17 +12,22 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@Builder
 public class Project {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     Long id;
 
-
     String name;
 
     @ManyToMany
+    @JoinColumn(name="user_id", referencedColumnName = "id")
     List<User> users;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="owner_id", referencedColumnName = "id")
+    List<User> owner;
 
     @OneToMany
     List<Board> boards;
