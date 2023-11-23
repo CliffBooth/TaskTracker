@@ -53,7 +53,6 @@ public class ProjectController {
         return ResponseEntity.ok(projectRepository.findAllByUsers_Id(currentUser.getId()));
     }
 
-    //todo: validate request data
     @PostMapping("/")
     ResponseEntity<?> createProject(@Validated @RequestBody CreateProject request) {
         User currentUser = getCurentUser();
@@ -82,7 +81,7 @@ public class ProjectController {
 
         List<User> newOwners = userRepository.findAllByNameIn(request.getOwnerNames());
         List<User> newUsers = userRepository.findAllByNameIn(request.getMemberNames());
-        //check that all userIds are actually correct
+        //check that all user names are actually correct
         if (newOwners.size() != request.getOwnerNames().size() || newUsers.size() != request.getMemberNames().size()) {
             Set<String> foundNames = newOwners.stream().map(User::getName).collect(Collectors.toSet());
             foundNames.addAll(newUsers.stream().map(User::getName).toList());
