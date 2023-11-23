@@ -1,5 +1,6 @@
 package bestsoftware.tasktracker.user;
 
+import bestsoftware.tasktracker.board.Board;
 import bestsoftware.tasktracker.project.Project;
 import jakarta.persistence.*;
 import lombok.*;

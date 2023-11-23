@@ -22,11 +22,19 @@ public class Project {
     String name;
 
     @ManyToMany
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinTable(
+        name="user_project",
+        joinColumns = { @JoinColumn(name="user_id") },
+        inverseJoinColumns = { @JoinColumn(name="project_id") }
+    )
     List<User> users;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="owner_id", referencedColumnName = "id")
+    @ManyToMany
+    @JoinTable(
+        name="owner_project",
+        joinColumns = { @JoinColumn(name="owner_id") },
+        inverseJoinColumns = { @JoinColumn(name="project_id") }
+    )
     List<User> owner;
 
     @OneToMany

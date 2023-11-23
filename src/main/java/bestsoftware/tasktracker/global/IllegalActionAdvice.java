@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.Map;
 
 @ControllerAdvice
-public class DataNotFoundAdvice {
+public class IllegalActionAdvice {
     @ResponseBody
-    @ExceptionHandler(DataNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    Map<String, String> handler(DataNotFoundException ex) {
+    @ExceptionHandler(IllegalActionException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    Map<String, String> handler(IllegalActionException ex) {
         return Map.of("error", ex.getMessage());
     }
 }

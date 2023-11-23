@@ -16,7 +16,7 @@ public class Board {
 
     @Id
     @GeneratedValue
-    Long Id;
+    Long id;
 
 
 }
