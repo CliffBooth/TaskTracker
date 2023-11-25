@@ -6,9 +6,13 @@ import bestsoftware.tasktracker.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+//can't use data, because it can't construct toString() because of the circular reference.
+@Setter
+@Getter
+@EqualsAndHashCode
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
@@ -24,19 +28,19 @@ public class Project {
     @ManyToMany
     @JoinTable(
         name="user_project",
-        joinColumns = { @JoinColumn(name="user_id") },
-        inverseJoinColumns = { @JoinColumn(name="project_id") }
+        joinColumns = { @JoinColumn(name="project_id") },
+        inverseJoinColumns = { @JoinColumn(name="user_id") }
     )
-    List<User> users;
+    List<User> users = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
         name="owner_project",
-        joinColumns = { @JoinColumn(name="owner_id") },
-        inverseJoinColumns = { @JoinColumn(name="project_id") }
+        joinColumns = { @JoinColumn(name="project_id") },
+        inverseJoinColumns = { @JoinColumn(name="owner_id") }
     )
-    List<User> owner;
+    List<User> owner = new ArrayList<>();
 
-    @OneToMany
-    List<Board> boards;
+    @OneToMany(mappedBy = "project")
+    List<Board> boards = new ArrayList<>();
 }

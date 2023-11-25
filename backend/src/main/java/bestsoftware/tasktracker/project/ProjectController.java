@@ -41,7 +41,8 @@ public class ProjectController {
     @GetMapping("/{id}")
     ResponseEntity<?> getProject(@PathVariable Long id) {
         Project p = getOrThrow(id);
-        return ResponseEntity.ok(p);
+        ProjectJSON result = new ProjectJSON(p);
+        return ResponseEntity.ok(result);
     }
 
     /**
@@ -50,7 +51,9 @@ public class ProjectController {
     @GetMapping("/my")
     ResponseEntity<?> getUserProjects() {
         User currentUser = getCurentUser();
-        return ResponseEntity.ok(projectRepository.findAllByUsers_Id(currentUser.getId()));
+        List<Project> projects = projectRepository.findAllByUsers_Id(currentUser.getId());
+        List<ProjectJSON> response = projects.stream().map(ProjectJSON::new).toList();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/")
@@ -59,13 +62,17 @@ public class ProjectController {
         String name = request.getName();
         List<User> owners = new ArrayList<>();
         owners.add(currentUser);
+        System.out.println("BEFORE BUILDING PROJECT");
         Project project = Project.builder()
                 .owner(owners)
                 .users(owners)
                 .name(name)
+                .boards(new ArrayList<>())
                 .build();
+//        System.out.println("Just built project = " + project);
         projectRepository.save(project);
-        return ResponseEntity.ok(project);
+        ProjectJSON response = new ProjectJSON(project);
+        return ResponseEntity.ok(response);
     }
 
     // any user in the project can update project
@@ -110,7 +117,8 @@ public class ProjectController {
 
         projectRepository.save(p);
 
-        return ResponseEntity.ok(p);
+        ProjectJSON response = new ProjectJSON(p);
+        return ResponseEntity.ok(response);
     }
 
     // only owner can delete project

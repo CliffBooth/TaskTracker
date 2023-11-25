@@ -7,11 +7,15 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//can't use data, because it can't construct toString() because of the circular reference.
+@Setter
+@Getter
+@EqualsAndHashCode
 @Entity
-@Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @AllArgsConstructor
 @Builder
@@ -28,8 +32,11 @@ public class User implements UserDetails {
     @Column
     String password;
 
-    @ManyToMany
-    List<Project> projects;
+    @ManyToMany(mappedBy = "users")
+    List<Project> projects = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "owner")
+    List<Project> ownedProjects = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
