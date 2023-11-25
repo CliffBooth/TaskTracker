@@ -25,7 +25,7 @@ public class Board {
     @JoinColumn(name="project_id", nullable = false)
     Project project;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "board")
     List<Task> tasks = new ArrayList<>();
 
 
