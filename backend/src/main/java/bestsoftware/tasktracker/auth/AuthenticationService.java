@@ -1,5 +1,6 @@
 package bestsoftware.tasktracker.auth;
 
+import bestsoftware.tasktracker.global.IllegalActionException;
 import bestsoftware.tasktracker.security.JwtService;
 import bestsoftware.tasktracker.user.User;
 import bestsoftware.tasktracker.user.UserRepository;
@@ -9,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -17,8 +20,11 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    //todo check error if username exists
     public AuthenticationResponse signup(SignupRequest request) {
+        repository.findByName(request.getName()).ifPresent((user) -> {
+            throw new IllegalActionException("username already exists!");
+        });
+
         User user = User.builder()
                 .name(request.getName())
                 .password(passwordEncoder.encode(request.getPassword()))
