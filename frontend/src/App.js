@@ -1,9 +1,25 @@
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import router from './router'
+import { Provider } from 'react-redux';
+import store from 'store'
+
 function App() {
-  return (
-    <div className='flex justify-center'>
-      <h1 className='font-blue-500'>in progress...</h1>
-    </div>
-  );
+    
+    return (
+        <Provider store={store} >
+        <div className="flex justify-center">
+            <RouterProvider router={router} />
+        </div>
+        </Provider>
+    );
 }
+
+/**
+<Layout>
+    <SideNav />
+    <Header />
+    <View />
+</Layout>
+ */
 
 export default App;
