@@ -8,7 +8,9 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @AllArgsConstructor
@@ -19,9 +21,8 @@ public class Task {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     Long id;
 
-    String title;
-
     String text;
+
 
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)

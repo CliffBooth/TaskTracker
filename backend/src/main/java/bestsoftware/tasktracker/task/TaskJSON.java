@@ -1,6 +1,5 @@
 package bestsoftware.tasktracker.task;
 
-import bestsoftware.tasktracker.board.BoardJSON;
 import bestsoftware.tasktracker.user.UserJSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,14 +12,14 @@ import java.util.List;
 @AllArgsConstructor
 public class TaskJSON {
     private Long id;
-    private String title;
+    private String text;
     private Long board;
     private List<UserJSON> users;
 
     public TaskJSON(Task t) {
         System.out.println(t);
         this.id = t.getId();
-        this.title = t.getTitle();
+        this.text = t.getText();
         this.board = t.getBoard().getId();
         this.users = t.getUsers().stream().map(UserJSON::new).toList();
     }
