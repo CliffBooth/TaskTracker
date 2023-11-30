@@ -2,6 +2,7 @@ package bestsoftware.tasktracker.user;
 
 import bestsoftware.tasktracker.board.Board;
 import bestsoftware.tasktracker.project.Project;
+import bestsoftware.tasktracker.task.Task;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +38,9 @@ public class User implements UserDetails {
 
     @ManyToMany(mappedBy = "owner")
     List<Project> ownedProjects = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "users")
+    List<Task> tasks = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

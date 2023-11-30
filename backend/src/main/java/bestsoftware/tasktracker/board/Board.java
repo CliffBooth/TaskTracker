@@ -1,28 +1,34 @@
 package bestsoftware.tasktracker.board;
 
+import bestsoftware.tasktracker.task.Task;
 import bestsoftware.tasktracker.project.Project;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @AllArgsConstructor
+@Builder
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+
+    String title;
 
     @ManyToOne
     @JoinColumn(name="project_id", nullable = false)
     Project project;
+
+    @OneToMany(mappedBy = "board")
+    List<Task> tasks = new ArrayList<>();
 
 
 }
