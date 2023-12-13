@@ -4,6 +4,7 @@ import bestsoftware.tasktracker.global.DataNotFoundException;
 import bestsoftware.tasktracker.global.IllegalActionException;
 import bestsoftware.tasktracker.project.Project;
 import bestsoftware.tasktracker.project.ProjectRepository;
+import bestsoftware.tasktracker.task.AddNewTask;
 import bestsoftware.tasktracker.task.Task;
 import bestsoftware.tasktracker.task.TaskJSON;
 import bestsoftware.tasktracker.task.TaskRepository;
@@ -44,11 +45,11 @@ public class BoardController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     ResponseEntity<?> createBoard(@Validated @RequestBody CreateBoard request) {
         String title = request.getTitle();
         Project project = projectRepository.findById(request.getProjectId()).orElseThrow(() -> new DataNotFoundException("Project not found" + request.getProjectId()));
-        System.out.println("BEFORE BUILDING BOARD");
+//        System.out.println("BEFORE BUILDING BOARD");
         Board board = Board.builder()
                 .title(title)
                 .project(project)
@@ -71,11 +72,11 @@ public class BoardController {
             throw new IllegalActionException("You are not a user of project " + project.getId());
         }
 
-        System.out.println(request.text);
+//        System.out.println(request.text);
         System.out.println(id);
 
         Task task = Task.builder()
-                .text(request.text)
+                .text(request.getText())
                 .board(board)
                 .users(new ArrayList<>())
                 .build();

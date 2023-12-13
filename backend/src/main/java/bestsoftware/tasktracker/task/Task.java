@@ -23,7 +23,6 @@ public class Task {
 
     String text;
 
-
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     Board board;

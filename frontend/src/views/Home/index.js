@@ -1,4 +1,5 @@
 import useAuth from "hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const {signOut} = useAuth();
@@ -9,12 +10,16 @@ const Home = () => {
     
     return (
         <div className="flex flex-col space-y-3">
-            <div>Home</div>
-            <button 
-            className="border-2 border-black p-2" 
-            onClick={handleLogout}>
-                log out
-            </button>
+            <h1>Welcome!</h1>
+            
+            <div className="flex justify-center">
+                <Link
+                className="border-2 border-black p-2 w-fit" 
+                to="/projects"
+                >
+                    view all projects
+                </Link>
+            </div>
         </div>
     );
 };

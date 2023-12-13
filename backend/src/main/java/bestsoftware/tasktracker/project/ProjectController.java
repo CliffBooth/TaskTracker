@@ -8,6 +8,7 @@ import bestsoftware.tasktracker.global.IllegalActionException;
 import bestsoftware.tasktracker.user.User;
 import bestsoftware.tasktracker.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -56,21 +57,29 @@ public class ProjectController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     ResponseEntity<?> createProject(@Validated @RequestBody CreateProject request) {
         User currentUser = getCurentUser();
         String name = request.getName();
         List<User> owners = new ArrayList<>();
         owners.add(currentUser);
-        System.out.println("BEFORE BUILDING PROJECT");
+//        System.out.println("BEFORE BUILDING PROJECT");
         Project project = Project.builder()
                 .owner(owners)
                 .users(owners)
                 .name(name)
                 .boards(new ArrayList<>())
                 .build();
-//        System.out.println("Just built project = " + project);
         projectRepository.save(project);
+
+        List<Board> newBoards = List.of(
+                Board.builder().title("TO DO").project(project).build(),
+                Board.builder().title("IN PROGRESS").project(project).build(),
+                Board.builder().title("DONE").project(project).build()
+        );
+        boardRepository.saveAll(newBoards);
+
+        project = getOrThrow(project.getId());
         ProjectJSON response = new ProjectJSON(project);
         return ResponseEntity.ok(response);
     }

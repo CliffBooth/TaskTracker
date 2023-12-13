@@ -18,7 +18,7 @@ public class BoardJSON {
     private List<TaskJSON> tasks;
 
     public BoardJSON(Board b) {
-        System.out.println(b);
+//        System.out.println(b);
         this.id = b.getId();
         this.title = b.getTitle();
         this.project = b.getProject().getId();

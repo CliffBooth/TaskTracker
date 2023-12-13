@@ -9,5 +9,8 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    'bg-red-500',
+  ]
 }
 

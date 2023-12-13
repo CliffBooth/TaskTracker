@@ -4,6 +4,8 @@ import bestsoftware.tasktracker.task.Task;
 import bestsoftware.tasktracker.project.Project;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class Board {
     @JoinColumn(name="project_id", nullable = false)
     Project project;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Task> tasks = new ArrayList<>();
 
 

@@ -1,6 +1,7 @@
-package bestsoftware.tasktracker.board;
+package bestsoftware.tasktracker.task;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddNewTask {
 
-    @NotBlank(message = "[title] must not be blank")
+    @NotNull(message = "[boardId] must not be blank")
+    Long boardId;
+
+    @NotBlank(message = "[text] must not be blank")
     String text;
 }

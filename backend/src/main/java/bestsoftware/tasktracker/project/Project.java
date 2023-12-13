@@ -41,6 +41,6 @@ public class Project {
     )
     List<User> owner = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Board> boards = new ArrayList<>();
 }

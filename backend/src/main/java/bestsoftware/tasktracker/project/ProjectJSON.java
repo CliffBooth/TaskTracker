@@ -1,6 +1,7 @@
 package bestsoftware.tasktracker.project;
 
 import bestsoftware.tasktracker.board.Board;
+import bestsoftware.tasktracker.board.BoardJSON;
 import bestsoftware.tasktracker.user.User;
 import bestsoftware.tasktracker.user.UserJSON;
 import lombok.AllArgsConstructor;
@@ -17,14 +18,14 @@ public class ProjectJSON {
     private String name;
     private List<UserJSON> users;
     private List<UserJSON> owners;
-    private List<Long> boards;
+    private List<BoardJSON> boards;
 
     public ProjectJSON(Project p) {
-        System.out.println(p);
+//        System.out.println(p);
         this.id = p.getId();
         this.name = p.getName();
         this.users = p.getUsers().stream().map(UserJSON::new).toList();
         this.owners = p.getOwner().stream().map(UserJSON::new).toList();
-        this.boards = p.getBoards().stream().map(Board::getId).toList();
+        this.boards = p.getBoards().stream().map(BoardJSON::new).toList();
     }
 }

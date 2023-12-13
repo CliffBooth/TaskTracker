@@ -8,6 +8,7 @@ import {
 } from 'configs/constants';
 import { onSignOutSuccess } from 'store/auth/sessionSlice';
 import store from 'store'
+import deepParseJson from 'utils/deepParseJson';
 
 const baseURL = appConfig.apiPrefix;
 
@@ -21,9 +22,11 @@ const ApiService = axios.create({
 
 ApiService.interceptors.request.use(
     config => {
-        const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
-        const persistData = JSON.parse(rawPersistData);
-        const accessToken = persistData?.auth?.session?.token
+        // const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
+        // const persistData = deepParseJson(rawPersistData);
+        // const accessToken = persistData?.auth?.session?.token
+        const currentState = store.getState()
+        const accessToken = currentState.auth.session.token
         if (accessToken) {
             config.headers[
                 REQUEST_HEADER_AUTH_KEY

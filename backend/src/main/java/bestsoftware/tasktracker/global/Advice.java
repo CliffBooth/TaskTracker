@@ -19,7 +19,7 @@ public class Advice {
 
     @ResponseBody
     @ExceptionHandler(IllegalActionException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     Map<String, String> handler(IllegalActionException ex) {
         return Map.of("message", ex.getMessage());
     }

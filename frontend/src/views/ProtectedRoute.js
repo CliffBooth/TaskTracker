@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import appConfig from 'configs/app.config'
+import appConfig from 'configs/app.config';
 import useAuth from 'hooks/useAuth';
 
-const {unAuthenticatedEntryPath} = appConfig
+const { unAuthenticatedEntryPath } = appConfig;
 
 const ProtectedRoute = props => {
-    const {authenticated} = useAuth()
+    const { authenticated } = useAuth();
 
     // console.log("protected route")
 
